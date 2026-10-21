@@ -1,0 +1,27 @@
+Raport z laboratorium 3
+
+
+Zadanie 1
+W trybie ECB wszystkie bloki były takie same, a w CBC nie było żadnych podobienstw. Oba szyfy zostały odszyfrowane poprawnie. Szyfr CBC nie powtarza się ponieważ szyfruje nie tylko za pomocą klucza ale też poprzedniego zaszyfrowanego bloku(dla pierwszego używa IV).
+
+Zadanie 2
+Puste dane: 16 B, Zgodne: True
+16 bajtów: 32 B, Zgodne: True
+Plik: 48 B, Zgodne: True
+Czy dwa szyfrowania dają ten sam kryptogram?: False
+Długości kryptogramów wynikają z zastosowania dopełnienia PKCS#7, które zawsze rozszerza 
+dane do pełnej wielokrotności bloku 16-bajtowego. Różnica między nimi polega na tym,
+ że sól zabezpiecza proces tworzenia klucza z hasła, natomiast wektor IV daje
+  unikalność kryptogramu przy każdym nowym szyfrowaniu.
+
+Zadanie 3
+Znak klucza: 'm', Entropia H = 4.4536
+Znak klucza: 'b', Entropia H = 7.9472
+Znak klucza: 'x', Entropia H = 7.9490
+Znak klucza: 'o', Entropia H = 7.9493
+Znak klucza: '2', Entropia H = 7.9502
+Najlepsz znak klucza: 'm'
+Tekst: Record 000. The archive contains laboratory notes
+Jest 36 kluczy, ponieważ zamiast 16 losowych bajtów powielono znak z alfabetu (a-z, 0-9). 
+Ranking może zawieść dla danych skompresowanych, 
+ponieważ dobra kompresja usuwa z pliku powtarzalne wzorce i plik zip miał by dużą entropię.
