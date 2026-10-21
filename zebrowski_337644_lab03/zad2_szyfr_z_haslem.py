@@ -25,9 +25,6 @@ def szyfruj_i_odszyfruj(dane_jawne):
 
 
 
-with open("wiadomosc.txt", "wb") as f:
-    f.write(b"test1234.")
-
 with open("wiadomosc.txt", "rb") as f:
     bajty_pliku = f.read()
 
