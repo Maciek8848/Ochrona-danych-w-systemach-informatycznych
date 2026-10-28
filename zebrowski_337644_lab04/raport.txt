@@ -1,0 +1,35 @@
+Zadanie 1
+dokumenty/budzet.csv status: BŁĄD
+dokumenty/dane.bin status: OK
+dokumenty/harmonogram.txt status: BRAK
+dokumenty/kontakt.txt status: OK
+dokumenty/regulamin.txt status: OK
+Różniące się bity: 131
+
+Suma kontrolna nie chroni przed celową podmianą, ponieważ atakujący może zmodyfikować 
+plik i podmienić na nową  sumę kontrolną, aby zapewnić autentyczność
+danych w tym przypadku, trzeba użyć kryptograficznego jakiegoś podpisu cyfrowego.
+
+Zadanie 2
+anna, Kasztan-2026  True
+anna, kasztan-2026  False
+piotr, Żółw na łące  True
+kasia, Kasztan-2026  False
+Sole takie same?    False
+Skróty takie same?  False
+test1 weryfikacja:  True
+test2 weryfikacja:  True
+
+Sól sprawia, że to samo hasło daje różne skróty u różnych użytkowników, więc nie da się 
+wykryć, kto ma takie samo hasło. Liczba iteracji spowalnia obliczenie każdego skrótu, 
+dzięki czemu atak brute force jest nie skuteczny bo trwa zbyt długo.
+
+Zadanie 3
+
+Para (v_oryginał, v_zmieniony), h24: (7282, 1761, 'aac6b9')
+Liczba wariantów zmienionego z h24 równym wariantowi 0 oryginału: 0
+
+Znalezienie dowolnej pary jest dużo prostsze niż dopasowanie do ustalonego skrótu, 
+bo przy porównywaniu każdego wariantu z każdym liczba par rośnie kwadratowo , 
+a dopasowanie do jednego skrótu daje tylko 8192 / 2**24 = 0,0005 oczekiwanego trafienia. 
+To jest pardoks urodzinowy.
