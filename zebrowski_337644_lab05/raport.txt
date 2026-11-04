@@ -1,0 +1,74 @@
+Zadanie 1
+
+Wyniki testów:
+/materialy/
+Przed zmiana: 200 OK        Po zmianie: 403 Forbidden
+
+/materialy/notatka.txt
+Przed zmiana: 200 OK           Po zmianie: 200 OK
+
+/wewnetrzne/
+Przed zmiana: 200 OK        Po zmianie: 403 Forbidden
+
+Adres URL: /wewnetrzne/plan.txt
+Przed zmiana: 200 OK       Po zmianie: 403 Forbidden
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+<title>403 Forbidden</title>
+</head><body>
+<h1>Forbidden</h1>
+<p>You don't have permission to access this resource.</p>
+</body></html>
+
+
+Wyłączenie listowania blokuje tylko automatyczne generowanie widoku 
+katalogu, ale cały czas pozwala na pobranie pliku, a blokada dostępu
+pozbywa się dostępu do katalogu i wszystkich plików.
+
+
+
+Zadanie 2
+
+Wyniki:
+curl.exe -i http://127.0.0.1:8080/panel/raport.txt -  bez danych logowania
+    HTTP/1.1 401 Unauthorized
+
+curl.exe -i -u student:zlehaslo http://127.0.0.1:8080/panel/raport.txt      - z blędnym hasłem
+    HTTP/1.1 401 Unauthorized
+
+curl.exe -i -u student http://127.0.0.1:8080/panel/raport.txt -   z poprawnym hasłem
+    Enter host password for user 'student':
+    HTTP/1.1 200 OK
+
+curl.exe -i http://127.0.0.1:8080/ - bez logowania
+    HTTP/1.1 200 OK
+
+
+WWW-Authenticate: Basic realm="Laboratorium 5"  - bez logowania
+
+
+Uwierzytelnianie Basic przesyła niezaszyfrowane dane logowania tylko w formie kodu (Base64)
+, przez co w protokole HTTP każdy kto podsłuchuje ruch sieciowy może prosto sprawdzic hasło.
+
+
+Zadanie 3
+Dane z systemu plików:
+-rw-r-----    1 0        2               48 Nov  4 09:00 ogolny.txt
+-rw-------    1 0        2               61 Nov  4 09:00 poufny.txt
+
+Wyniki działania CGI:
+UID: 2
+GID: 2
+Plik ogolny.txt:
+LAB05: dokument dostepny dla grupy procesu WWW.
+
+Plik poufny.txt:
+Odmowa odczytu
+
+Kody HTTP dla uprawnienia.cgi:
+curl.exe -i http://127.0.0.1:8080/cgi-bin/uprawnienia.cgi  - bez logowania
+    HTTP/1.1 200 OK
+curl.exe -i -u student http://127.0.0.1:8080/cgi-bin/uprawnienia.cgi  - z logowaniem
+Enter host password for user 'student':
+HTTP/1.1 200 OK
