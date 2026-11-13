@@ -1,0 +1,35 @@
+Zadanie 1
+URL: http://127.0.0.1:8080/szukaj?q=%3Cscript%3Edocument.body.style.background%3D%27red%27%3Bdocument.title%3D%27XSS-odbity%27%3C%2Fscript%3E
+Przed poprawką
+<h1><script>......</script></h1>
+Po poprawce: 
+<!doctype html><meta charset='utf-8'><title>Szukaj</title><h1>Wyniki wyszukiwania dla: &lt;script&gt;document.body.style.background=&#x27;red&#x27;;document.title=&#x27;XSS-odbity&#x27;&lt;/script&gt;</h1><ul></ul><p><a href='/'>Powrót</a></p>
+ Test Flask: payload zakodowany; „konsultacje” nadal znajduje wpis.
+
+Kodowanie wyjścia powoduje że tekst będzie się wyświetlał oraz HTML się nie wykonajs,a blokadę słowa „script” łatwo ominąć innym znacznikiem.
+
+
+
+Zadanie 2
+<script>document.title='XSS-zapisany'</script>.
+
+Set-Cookie z testu:
+przed: session=eyJ1enl0a...; Path=/
+po:    session=eyJ1enl0a...; HttpOnly; Path=/
+
+Nie użyto ładunku kradnącego ciasteczko ani nie odtwarzano cudzej sesji
+brak wpisów zbieracza. 
+HttpOnly nie usuwa XSS i nie blokuje działań skryptu w sesji ofiary
+
+
+Zadanie 3
+Ładunek / wynik                 Przed                    Po
+Odbity: tytuł XSS-odbity        HTML wykonywalny         tekst zakodowany
+Zapisany: skrypt w ogłoszeniu   filtr safe dopuszczał     autoescape + CSP
+DOM: fragment # z onerror       innerHTML                 textContent + CSP
+CSP: default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'
+
+Test „Zażółć gęślą jaźń: <b>pogrubienie</b> & "cudzysłów" 'apostrof'”
+test Flask potwierdził kodowanie znaczników i znaków specjalnych.
+
+CSP jest dodatkową warstwą ograniczającą skutki błędów, a nie zamiennikiem kodowania wyjścia.
