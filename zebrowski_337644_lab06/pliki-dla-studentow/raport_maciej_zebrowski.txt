@@ -17,8 +17,7 @@ Set-Cookie z testu:
 przed: session=eyJ1enl0a...; Path=/
 po:    session=eyJ1enl0a...; HttpOnly; Path=/
 
-Nie użyto ładunku kradnącego ciasteczko ani nie odtwarzano cudzej sesji
-brak wpisów zbieracza. 
+
 HttpOnly nie usuwa XSS i nie blokuje działań skryptu w sesji ofiary
 
 
@@ -28,8 +27,3 @@ Odbity: tytuł XSS-odbity        HTML wykonywalny         tekst zakodowany
 Zapisany: skrypt w ogłoszeniu   filtr safe dopuszczał     autoescape + CSP
 DOM: fragment # z onerror       innerHTML                 textContent + CSP
 CSP: default-src 'self'; script-src 'self'; object-src 'none'; base-uri 'self'
-
-Test „Zażółć gęślą jaźń: <b>pogrubienie</b> & "cudzysłów" 'apostrof'”
-test Flask potwierdził kodowanie znaczników i znaków specjalnych.
-
-CSP jest dodatkową warstwą ograniczającą skutki błędów, a nie zamiennikiem kodowania wyjścia.
